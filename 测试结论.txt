@@ -1,0 +1,37 @@
+通过测试发现
+
+
+带参数调整  50次参数组合结果MSE 9.926845842566216
+100%|█████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:07<00:00,  6.89trial/s, best loss: 2.4682914205511284] 
+[iter 0] loss=3.5985 val_loss=3.3426 scale=1.0000 norm=6.6000
+== Early stopping achieved.
+== Best iteration / VAL6 (val_loss=2.4605)
+Test MSE_ngb_new 9.926845842566216
+
+
+带参数调整  100次参数组合结果MSE 8.764574576417742
+100%|███████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:16<00:00,  6.11trial/s, best loss: 2.4554429720852444] 
+[iter 0] loss=3.5985 val_loss=3.4373 scale=1.0000 norm=6.6000
+== Early stopping achieved.
+== Best iteration / VAL13 (val_loss=2.4524)
+Test MSE_ngb_new 8.764574576417742
+
+
+带参数调整  200次参数组合结果MSE 9.22321399150819
+100%|███████████████████████████████████████████████████████████████████████████████████████| 200/200 [00:29<00:00,  6.79trial/s, best loss: 2.3971857229337847] 
+[iter 0] loss=3.5985 val_loss=3.3435 scale=1.0000 norm=6.6000
+== Early stopping achieved.
+== Best iteration / VAL6 (val_loss=2.4038)
+Test MSE_ngb_new 9.22321399150819
+
+
+不带参数调整 使用默认参数    速度最快  MSE 9.051448592521064
+[iter 0] loss=3.5985 val_loss=3.6382 scale=1.0000 norm=6.6000
+[iter 100] loss=2.7856 val_loss=2.8596 scale=2.0000 norm=5.4361
+[iter 200] loss=2.1781 val_loss=2.5296 scale=2.0000 norm=3.4066
+== Early stopping achieved.
+== Best iteration / VAL203 (val_loss=2.5292)
+Test MSE_ngb 9.051448592521064
+
+
+NGBoost 在小数据集中一般表现比其他模型更好，但是在小数据集中不使用参数调整也可以取得不错的MSE分数，有些情况下比使用了参数调整还要更好

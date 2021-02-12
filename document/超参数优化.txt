@@ -1,0 +1,74 @@
+超参数优化
+比较不错的有
+BOHB(Bayesian Optimization and HyperBand) 时间复杂度是O(nlogn)
+BO-TPE  Tree-structured Parzen estimators (TPE)  时间复杂度是O(nlogn)
+
+
+超参数优化的工具（库）
+Scikit-learn (grid search, random search)
+Hyperopt
+Scikit-Optimize
+Optuna(Optuna比Hyperopt更好一些)
+Ray.tune
+
+
+Hyperopt框架包含的算法
+	Random Search
+	Tree of Parzen Estimators (TPE)
+Hyperopt教程
+https://github.com/hyperopt/hyperopt/wiki/FMin
+hp参数设定时几种类型：
+底下的链接里面有各种参数空间选择的例子说明 日文版
+https://qiita.com/nazoking@github/items/f67f92dc60001a43b7dc#2%E6%A4%9C%E7%B4%A2%E7%A9%BA%E9%96%93%E3%81%AE%E5%AE%9A%E7%BE%A9
+
+	hp.choice(label, options) — Returns one of the options, which should be a list or tuple.
+
+	hp.randint(label, upper) — Returns a random integer in the range [0, upper).
+
+	hp.uniform(label, low, high) — Returns a value uniformly between low and high.
+
+	hp.quniform(label, low, high, q) — Returns a value like round(uniform(low, high) / q) * q
+
+	hp.normal(label, mu, sigma) — Returns a real value that’s normally-distributed with mean mu and standard deviation sigma.
+	平均ミューと標準偏差 sigma で正規分布している実際の値を返します。最適化する場合、これは制約のない変数です。
+
+	hp.loguniform(label, low, high)
+	exp(uniform(low, high)) のような対数に一様に分布するように返します。
+	最適化すると、この変数は区間 [exp(low), exp(high)] に制約されます。
+
+Optuna
+	利用历史数据从有希望的领域寻找优化的超参数，所以时间更短。
+	对于没有希望的领域可以早期停止搜索。
+Optuna中文教程
+https://optuna.readthedocs.io/zh_CN/latest/
+
+轻量级、多功能和跨平台架构
+	只需少量依赖，简单安装完成后便可处理各种任务。
+Python 式的搜索空间
+	利用熟悉的python 语法，如 条件语句和循环来定义搜索空间。
+高效的优化算法
+	采用了最先进的超参数采样和最有效的对无望 trial 进行剪枝的算法。
+并行的分布式优化
+	仅需少量甚至无需代码修改便可将 study 分布到数十甚至数百个 worker。
+便捷的可视化
+	查询优化记录。
+
+
+starttime=datetime.datetime.now()
+endtime=datetime.datetime.now()
+process_time_rf=endtime-starttime
+print("程序执行时间（秒）={}".format(process_time_rf))
+
+
+结论：
+在分数MSE测试统计方面randomforestregression效果最好（MSE分数最低）并且各种调整方法下基本分数一样，其次是ANN神经网络。KNN和SVR相对比较差（MSE分数偏高）。
+在时间花费测试方面ANN和randomforestregression也比较低。
+BO-TPE和randomsearch方法下使用ANN或者randomforestregression可以获得比较好的准确率和较少的时间花费。
+
+
+NGBoost在使用超参数调整和不使用超参数调整的差别比较
+NGBoost 在小数据集中一般表现比其他模型更好，但是在小数据集中不使用参数调整也可以取得不错的MSE分数，有些情况下比使用了参数调整还要更好
+
+
+NGBoost 超参数调整完整的例子参考
+https://github.com/stanfordmlgroup/ngboost/blob/master/examples/tuning/hyperopt.ipynb

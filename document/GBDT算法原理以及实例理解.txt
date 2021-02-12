@@ -1,0 +1,88 @@
+GBDT算法原理以及实例理解
+并且在GitHub上实现了和本文一致的GBDT简易版（包括回归、二分类、多分类以及可视化）
+  Github：https://github.com/Freemanzxp/GBDT_Simple_Tutorial
+
+GBDT使用的决策树是CART回归树，无论是处理回归问题还是二分类以及多分类，GBDT使用的决策树通通都是都是CART回归树,为什么不用CART分类树呢？因为GBDT每次迭代要拟合的是梯度值，是连续值所以要用回归树。
+
+先来个通俗理解：假如有个人30岁，我们首先用20岁去拟合，发现损失有10岁，这时我们用6岁去拟合剩下的损失，发现差距还有4岁，第三轮我们用3岁拟合剩下的差距，差距就只有一岁了。如果我们的迭代轮数还没有完，可以继续迭代下面，每一轮迭代，拟合的岁数误差都会减小。最后将每次拟合的岁数加起来便是模型输出的结果。
+
+残差就是距离goal目标还差多少
+GBDT的负梯度就是残差，所以说对于回归问题，我们要拟合的就是残差
+
+
+二分类和多分类的损失函数都是logloss
+
+============================================================================
+NGBoost介绍， XGB和LightGBM预测结果基本差不多，NGBoost更好一些
+
+NGBoost / Natural Gradient Boosting
+NGBoost 算法是一种用于概率预测的监督学习方法
+NGBoost 在 RMSE 和 NLL 上的表现都很有竞争力，尤其是在更小型的数据集上。
+
+NGBoost计算的是一个概率值（不是完全准确的值，是一个可能出现的概率值），然后使用MSE（预测值和实际值）计算结果。
+MSE值越小说明拟合效果越好。
+
+NGBoost的构成要素有3个
+1.Base Learner
+決定木などのアルゴリズム
+
+2.Probability Distribution
+出力する確率分布、正規分布、ラプラス分布などの分布設定
+
+3.Scoring rule
+MLE, CRPSなどのスコア関数
+
+
+GBDT有很多简称，有GBT（Gradient Boosting Tree）、 GTB（Gradient Tree Boosting ）、GBRT（Gradient Boosting Regression Tree）梯度提升回归树、MART(Multiple Additive Regression Tree)多决策回归树、Tree Net决策树网络，其实都是指的同一种算法，本文统一简称GBDT。
+
+
+GBDT 是机器学习中的一个非常流行并且有效的算法模型，2014 年陈天奇博士提出的 XGBoost 算法就是 GBDT 一个重要实现。但在大训练样本和高维度特征的数据环境下，GBDT 算法的性能以及准确性却面临了极大的挑战，随后，2017 年 LightGBM 应势而生，由微软开源的一个机器学习框架；同年，俄罗斯的搜索巨头 Yandex 开源 Catboost 框架
+
+
+对于决策树来说并不推荐使用 one-hot 编码：
+会产生样本切分不平衡问题，切分增益会非常小。如，国籍切分后，会产生是否中国，是否美国等一系列特征，这一系列特征上只有少量样本为 1，大量样本为 0。这种划分的增益非常小：较小的那个拆分样本集，它占总样本的比例太小。无论增益多大，乘以该比例之后几乎可以忽略；较大的那个拆分样本集，它几乎就是原始的样本集，增益几乎为零；
+影响决策树学习：决策树依赖的是数据的统计信息，而独热码编码会把数据切分到零散的小空间上。在这些零散的小空间上统计信息不准确的，学习效果变差。本质是因为独热码编码之后的特征的表达能力较差的，特征的预测能力被人为的拆分成多份，每一份与其他特征竞争最优划分点都失败，最终该特征得到的重要性会比实际值低。
+
+
+1.Bagging + 决策树 = 随机森林
+2.AdaBoost + 决策树 = 提升树
+3.Gradient Boosting + 决策树 = GBDT
+
+
+XGBoost方法在商店销售预测; 高能物理事件分类; 网络文字分类; 顾客行为预测; 运动检测; 广告点击率预测; 恶意软件分类;产品分类; 危险风险预测; 辍学率预测表现都比较好。
+
+
+模型好坏的指标3个
+根据训练和预测的时间
+预测得分
+可解释性
+
+
+Boosting的核心思想是将一些弱分类器结合起来形成一个强分类器；
+
+
+ngboost usage
+https://github.com/stanfordmlgroup/ngboost
+https://pypi.org/project/ngboost/
+
+paper link
+https://arxiv.org/pdf/1910.03225.pdf
+japanese instruction
+https://ai-scholar.tech/articles/treatise/ngboost-ai-345
+
+
+一些总结的结果可以查看下面ppt
+paper_article_research_result_summarized-20210130.pptx
+
+
+决策树的代码实现（基于ID3算法生成决策树）  中文解释
+https://github.com/Dod-o/Statistical-Learning-Method_Code/blob/master/DecisionTree/DecisionTree.py
+
+
+决策树的直观理解  统计学习方法
+https://zhuanlan.zhihu.com/p/51264490
+
+
+支持向量机 svm代码解释   中文解释
+https://github.com/Dod-o/Statistical-Learning-Method_Code/blob/master/SVM/SVM.py
+https://www.pkudodo.com/2018/12/16/1-8/
