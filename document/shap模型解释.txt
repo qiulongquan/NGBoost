@@ -1,0 +1,32 @@
+shap模型解释
+
+关于shap解释的资料看下面链接
+https://zhuanlan.zhihu.com/p/83412330
+
+其中f(x_ij)为x_ij的SHAP值。直观上看，f(xi,1)就是第i个样本中第1个特征对最终预测值yi的贡献值，当f(xi,1)>0，说明该特征提升了预测值，也正向作用；反之，说明该特征使得预测值降低，有反作用。
+
+传统的feature importance只告诉哪个特征重要，但我们并不清楚该特征是怎样影响预测结果的。SHAP value最大的优势是SHAP能对于反映出每一个样本中的特征的影响力，而且还表现出影响的正负性。
+
+将模型的预测结果从基本值(base value)推动到最终的取值(model output)；将预测推高的特征用红色表示，将预测推低的特征用蓝色表示
+
+单个prediction的解释
+SHAP提供极其强大的数据可视化功能，来展示模型或预测的解释结果。
+
+Global Interper
+Global可解释性：寻求理解模型的overall structure(总体结构。这往往比解释单个预测困难得多，因为它涉及到对模型的一般工作原理作出说明，而不仅仅是一个预测。
+
+summary_plot
+summary plot 为每个样本绘制其每个特征的SHAP值，这可以更好地理解整体模式，并允许发现预测异常值。每一行代表一个特征，横坐标为SHAP值。一个点代表一个样本，颜色表示特征值(红色高，蓝色低)。比如，这张图表明LSTAT特征较高的取值会降低预测的房价
+
+Feature Importance：
+之前提到传统的importance的计算方法效果不好，SHAP提供了另一种计算特征重要性的思路。
+取每个特征的SHAP值的绝对值的平均值作为该特征的重要性，得到一个标准的条形图(multi-class则生成堆叠的条形图)
+
+其他类型的explainers
+SHAP库可用的explainers有：
+deep：用于计算深度学习模型，基于DeepLIFT算法
+gradient：用于深度学习模型，综合了SHAP、集成梯度、和SmoothGrad等思想，形成单一期望值方程
+kernel：模型无关，适用于任何模型
+linear：适用于特征独立不相关的线性模型
+tree：适用于树模型和基于树模型的集成算法（程序例子使用的就是tree 适合于XGBoost LGB NGB CatBoost）
+sampling ：基于特征独立性假设，当你想使用的后台数据集很大时，kenel的一个很好的替代方案
