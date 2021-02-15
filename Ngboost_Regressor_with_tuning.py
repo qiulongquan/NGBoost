@@ -63,7 +63,7 @@ b2 = DecisionTreeRegressor(criterion='friedman_mse', max_depth=3)
 b3 = DecisionTreeRegressor(criterion='friedman_mse', max_depth=4)
 
 space = {
-    'learning_rate': hp.uniform('learning_rate', .05, 1),
+    'learning_rate': hp.uniform('learning_rate', 0.001, 0.5),
     'minibatch_frac': hp.choice('minibatch_frac', [1.0, 0.5]),
     'Base': hp.choice('Base', [b1, b2, b3])
 }
@@ -101,7 +101,7 @@ with warnings.catch_warnings():
         space=space,
         algo=tpe.suggest,
         # max_evals是设定多少套参数组合，组合数越大准确度可能更高但是训练的时间越长
-        max_evals=200,
+        max_evals=50,
         trials=TRIALS)
 
 best_params = space_eval(space, best)
@@ -143,7 +143,7 @@ def lr_loss_plot(ft, trials):
     plt.show()
 
 
-def count_loss_plot(ft, trials):
+def times_loss_plot(ft, trials):
 
     print("learning_rate plot for parameter {}".format(ft))
 
@@ -162,6 +162,6 @@ def count_loss_plot(ft, trials):
 
 
 lr_loss_plot('learning_rate', TRIALS)
-count_loss_plot('count', TRIALS)
+times_loss_plot('times', TRIALS)
 
 # if __name__ == "__main__":

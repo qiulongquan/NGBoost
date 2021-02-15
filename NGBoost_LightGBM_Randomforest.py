@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from ngboost import NGBRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.datasets import load_boston
