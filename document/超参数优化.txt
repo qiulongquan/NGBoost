@@ -72,3 +72,14 @@ NGBoost 在小数据集中一般表现比其他模型更好，但是在小数据
 
 NGBoost 超参数调整完整的例子参考
 https://github.com/stanfordmlgroup/ngboost/blob/master/examples/tuning/hyperopt.ipynb
+
+
+这个里面包括了分类和回归 2种方式，利用多种超参数优化来获取最好结果的案例
+https://github.com/LiYangHart/Hyperparameter-Optimization-of-Machine-Learning-Algorithms
+
+
+总结：
+LightGBM + optuna 超参数调整 可以获得较好的精度和较短的训练时间
+NGBoost + hyperOPT 超参数调整 可以获得较好的精度和较短的训练时间
+RandomForest + randomsearch超参数调整 可以获得较好的精度和较短的训练时间
+RandomForest + bo-tpe超参数方法也可以尝试
